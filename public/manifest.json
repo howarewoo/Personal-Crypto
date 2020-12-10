@@ -1,14 +1,13 @@
 {
+  "name": "Personal Crypto",
+  "version": "0.1.0",
   "manifest_version": 2,
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "version": "0.0.1",
-  "description": "Build an Extension!",
-  "browser_action": {
-    "default_popup": "index.html",
-    "default_title": "Open the popup"
+  "description": "A cryptocurrency extension for Personal Capital",
+  "icons": {
+      "512": "logo512.png"
   },
-  "content_security_policy": "script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'",
-  "permissions": [],
-  "icons": {}
+  "browser_action": {
+      "default_icon": "logo512.png",
+      "default_popup": "popup.html"
+  }
 }
