@@ -1,0 +1,5 @@
+INLINE_RUNTIME_CHUNK=false
+GENERATE_SOURCEMAP=false
+
+
+  "content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-...='; object-src 'self'"
