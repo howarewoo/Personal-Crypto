@@ -11,8 +11,12 @@ export function ExchangeListView() {
     return (
         <div>
             {behavior.store.exchanges.map((exchange) => (
-                <ListItemLink primary={exchange.name} to="/"/>
+                <ListItemLink primary={exchange.name} to="/" />
             ))}
+
+            <button type="button" onClick={() => history.push("/")}>
+                Home
+            </button>
         </div>
     );
 }
