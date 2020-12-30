@@ -1,73 +1,39 @@
 import React from "react";
-import { AppBar, createStyles, Divider, fade, IconButton, InputBase, ListItem, ListSubheader, makeStyles, Paper, Theme, Toolbar, Typography } from "@material-ui/core";
 
-import SearchIcon from '@material-ui/icons/Search';
-import AddIcon from '@material-ui/icons/Add';
-import AccountBalanceOutlinedIcon from '@material-ui/icons/AccountBalanceOutlined';
-import AccountBalanceWalletOutlinedIcon from '@material-ui/icons/AccountBalanceWalletOutlined';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import { createStyles, Divider, makeStyles, Theme } from "@material-ui/core";
 
-import { useHistory } from "react-router-dom";
 import { ListItemLink } from "../../assets/components/ListItemLink";
 
-import logo from './logo.svg';
 import { SearchBar } from "../../assets/components/SearchBar";
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            width: '100%',
-        },
-        title: {
-            flexGrow: 1,
-        },
-        input: {
-            marginLeft: theme.spacing(1),
-            flex: 1,
-        },
-        iconButton: {
-            padding: 10,
-        },
-        divider: {
-            height: 28,
-            margin: 4,
-        },
-    }),
-);
+import { AccountBalanceOutlined, AccountBalanceWalletOutlined, Add, GitHub, ArrowRight } from "@material-ui/icons";
 
 export function HomeView() {
-    const classes = useStyles()
     return (
-        <div className={classes.root}>
-            {/* <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        Personal Crypto
-                    </Typography>
-                    <IconButton color="inherit">
-                        <AddIcon />
-                    </IconButton>
-                </Toolbar>
-            </AppBar> */}
-            <SearchBar />
+        <div style={{ width: '100%' }}>
+            <SearchBar placeholder="Search Accounts" />
             <Divider />
             <ListItemLink
-                rightIcon={<AccountBalanceOutlinedIcon />}
+                rightIcon={<AccountBalanceOutlined />}
                 primary="Exchanges"
-                leftIcon={<ArrowRightIcon />}
+                leftIcon={<ArrowRight />}
                 to="/exchanges" />
             <ListItemLink
-                rightIcon={<AccountBalanceWalletOutlinedIcon />}
+                rightIcon={<AccountBalanceWalletOutlined />}
                 primary="Wallets"
-                leftIcon={<ArrowRightIcon />}
+                leftIcon={<ArrowRight />}
                 to="/wallets" />
             <Divider />
             <ListItemLink
-                rightIcon={<AddIcon />}
+                rightIcon={<Add />}
                 primary="Add Account"
-                leftIcon={<ArrowRightIcon />}
+                leftIcon={<ArrowRight />}
                 to="/add" />
-
+            <Divider />
+            <ListItemLink
+                rightIcon={<GitHub />}
+                primary="Github"
+                leftIcon={<ArrowRight />}
+                onClick={() => window.open("https://github.com/awoox2/personal-crypto", "_blank")} />
         </div>
     );
 }

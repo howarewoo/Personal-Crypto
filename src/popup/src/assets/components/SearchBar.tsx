@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export function SearchBar({inputProps}: any) {
+export function SearchBar({inputProps, placeholder}: any) {
     const classes = useStyles()
     return (
         <div className={classes.search}>
@@ -58,7 +58,7 @@ export function SearchBar({inputProps}: any) {
                     root: classes.inputRoot,
                     input: classes.inputInput,
                 }}
-                placeholder="Search Accounts"
+                placeholder={placeholder}
                 inputProps={inputProps}
             />
         </div>

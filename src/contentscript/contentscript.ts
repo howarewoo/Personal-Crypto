@@ -1,16 +1,16 @@
-import { PersonalCapitalAPI } from "../apis/personal_capital/PersonalCapitalAPI";
-import { PersonalCrypto } from "../apis/personal_crypto/PersonalCrypto";
-
+import { PersonalCrypto } from "./personalcrypto";
 
 window.addEventListener(
     'message',
-    (event) => {
+    async (event) => {
         if (event.source === window && event.data.type && event.data.type == 'PERSONAL_CRYPTO') {
             const csrf = event.data.text;
-            // const personal_crypto = new PersonalCrypto();
-            // personal_crypto.setCSRF(csrf);
-            const test = new PersonalCapitalAPI(csrf)
-            console.log(test.test(["Cryptocurrency"]))
+            const personal_crypto = new PersonalCrypto(csrf);
+            await personal_crypto.getPersonalCapitalData();
+            await personal_crypto.getExchangeData()
+            await personal_crypto.getPriceData()
+            await personal_crypto.getAccountIds()
+            await personal_crypto.setPersonalCapitalData()
         }
     },
     false

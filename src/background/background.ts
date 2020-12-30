@@ -1,26 +1,28 @@
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    (async () => {
-        switch (request.action) {
-          case 'pfcrypto_request':
-            try {
-              console.log(`fetching data at ${request.url}`);
-              const resp = await fetch(request.url);
-              if (resp.ok) {
-                const data = await resp.json();
-                sendResponse({
-                  data,
-                  ok: true,
-                });
-              } else {
-                throw new Error('unsuccessful request');
-              }
-            } catch (ex) {
-              sendResponse({
-                ok: false,
-              });
-            }
-          default:
-            break;
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  (async () => {
+    switch (message.action) {
+      case 'api_client_request':
+        try {
+          console.log(`fetching data at ${message.url}`);
+          const resp = await fetch(message.url, message.request);
+          if (resp.ok) {
+            const data = await resp.json();
+            console.log(data)
+            sendResponse({
+              data,
+              ok: true,
+            });
+          } else {
+            throw new Error('unsuccessful request');
+          }
+        } catch (ex) {
+          sendResponse({
+            ok: false,
+          });
         }
-      })();
+      default:
+        break;
+    }
+  })();
+  return true;
 })
