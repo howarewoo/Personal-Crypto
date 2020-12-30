@@ -6,4 +6,5 @@ export enum SupportedAccountTypes {
 export interface IAccountOption {
     id: string;
     label: string;
+    secure?: boolean;
 }

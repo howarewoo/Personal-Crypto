@@ -22,7 +22,8 @@ export const SupportedExchangeInfo: IExchangeInfo[] = [
             },
             {
                 id: 'secret',
-                label: 'API Secret Key'
+                label: 'API Secret Key',
+                secure: true
             }
         ]
     }

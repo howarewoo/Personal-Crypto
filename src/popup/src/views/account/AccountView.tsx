@@ -68,6 +68,7 @@ export const AccountView = observer((props: { account?: PersonalCryptoAccount })
                         style={{ width: "100%" }}
                         label={option.label}
                         value={account?.options[option.id]}
+                        type={option.secure ? "password" : "text"}
                         disabled />
                 ))}
             </div>
