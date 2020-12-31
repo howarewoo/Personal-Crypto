@@ -1,0 +1,58 @@
+{
+    "name": "popup",
+    "version": "0.1.0",
+    "homepage": "./",
+    "private": true,
+    "dependencies": {
+        "@material-ui/core": "^4.11.2",
+        "@material-ui/icons": "^4.11.2",
+        "@material-ui/lab": "^4.0.0-alpha.57",
+        "@testing-library/jest-dom": "^5.11.4",
+        "@testing-library/react": "^11.1.0",
+        "@testing-library/user-event": "^12.1.10",
+        "@types/jest": "^26.0.15",
+        "@types/node": "^12.0.0",
+        "@types/react": "^16.9.53",
+        "@types/react-dom": "^16.9.8",
+        "mobx": "^6.0.4",
+        "mobx-react-lite": "^3.1.6",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "4.0.1",
+        "typescript": "^4.0.3",
+        "uuid": "^8.3.2",
+        "web-vitals": "^0.2.4"
+    },
+    "scripts": {
+        "watch:build": "cra-build-watch -v --build-path ../../dist/popup",
+        "start": "react-app-rewired start",
+        "build": "react-app-rewired build",
+        "test": "react-app-rewired test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@types/react-router-dom": "^5.1.6",
+        "@types/uuid": "^8.3.0",
+        "react-app-rewire-alias": "^0.1.9",
+        "react-app-rewired": "^2.1.8"
+    }
+}

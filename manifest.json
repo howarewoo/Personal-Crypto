@@ -1,0 +1,33 @@
+{
+    "manifest_version": 2,
+    "name": "Personal Crypto",
+    "short_name": "React & Typescript based Chrome Extension",
+    "version": "1.0.0",
+    "description": "Chrome Extension with React and Typescript Starter Pack",
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "storage"
+    ],
+    "browser_action": {
+        "default_popup": "popup/index.html",
+        "default_title": "React Chrome Extension Starter"
+    },
+    "icons": {
+        "256": "./assets/bitcoin256.png"
+    },
+    "content_scripts": [{
+        "js": [
+            "contentscript.js"
+        ],
+        "matches": [
+            "https://home.personalcapital.com/page/login/app*"
+        ]
+    }],
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    }
+}
