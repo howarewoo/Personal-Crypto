@@ -38,9 +38,9 @@ export class BinanceUS extends AbstractExchange {
         const url = this.base + '/api/v3/account';
         const headers = this._getHeaders();
 
-        const offset = (await this._getServerTime()) - new Date().getTime();
-        const timestamp = new Date().getTime() + offset;
+        const timestamp = await this._getServerTime();
         let query = 'timestamp=' + timestamp;
+        query += '&recvWindow=' + "60000";
         query += '&signature=' + this._getQuerySignature(query);
 
         const resp = await this.fetchWithProxy(url + "?" + query, { headers })

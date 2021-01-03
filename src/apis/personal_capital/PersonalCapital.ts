@@ -74,7 +74,7 @@ export class PersonalCapital extends AbstractClient {
             console.log(data.spHeader.errors)
         }
         else {
-            console.log(holding.ticker, 'updated', holding)
+            console.log(holding.accountName, holding.ticker, 'updated', holding)
         }
     }
 

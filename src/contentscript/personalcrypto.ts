@@ -22,13 +22,23 @@ export class PersonalCrypto {
         );
     }
 
+    nomics: Nomics = new Nomics()
     personalCapital: PersonalCapital;
     accounts: PersonalCryptoAccount[];
     capitalHoldings: Map<string, PersonalCapitalHolding[]> = new Map<string, PersonalCapitalHolding[]>()
     cryptoHoldings: Map<string, PersonalCryptoHolding[]> = new Map<string, PersonalCryptoHolding[]>();
 
-    async getAccountIds(): Promise<void> {
-        if (!this.cryptoHoldings.keys()) return
+    async run(): Promise<void> {
+        await this.getPersonalCapitalData();
+        await this.getExchangeData();
+        await this.getPriceData();
+        await this.getAccountIds();
+        await this.setPersonalCapitalData();
+    }
+
+    async getAccountIds(): Promise<boolean> {
+        console.log('fetching Account IDs')
+        if (!this.cryptoHoldings.keys()) return false;
         const pcAccounts = await this.personalCapital.getAccounts()
         this.cryptoHoldings.forEach((accountHoldings, accountName) => {
             const selectedAccount = pcAccounts.find(account => account.name === accountName);
@@ -36,43 +46,49 @@ export class PersonalCrypto {
                 holding.userAccountId = selectedAccount.userAccountId
             }
         })
+        return true;
     }
 
-    async getPersonalCapitalData(): Promise<void> {
+    async getPersonalCapitalData(): Promise<boolean> {
+        console.log('fetching Personal Capital account data')
         const holdings = await this.personalCapital.getHoldings()
         for (let holding of holdings) {
             let temp = this.capitalHoldings.get(holding.accountName) || []
             temp.push(holding)
             this.capitalHoldings.set(holding.accountName, temp)
         }
+        return true;
     }
 
-    async getExchangeData(): Promise<void> {
-        if (!this.accounts) return
+    async getExchangeData(): Promise<boolean> {
+        console.log('fetching Exchange data')
+        if (!this.accounts) return false;
         for (let account of this.accounts) {
             let client: AbstractExchange = ClientFactory.getClient(account);
             this.cryptoHoldings.set(account.name, await client.getHoldings())
         }
+        return true;
     }
 
     async getWalletData(): Promise<void> {
 
     }
 
-    async getPriceData(): Promise<void> {
-        const nomics = new Nomics();
-        this.cryptoHoldings.forEach(async (accountHoldings, accountName) => {
+    async getPriceData(): Promise<boolean> {
+        console.log('fetching Price data')
+        for (let [accountName, accountHoldings] of Array.from(this.cryptoHoldings.entries())) {
             for (let holding of accountHoldings) {
-                const priceData = await nomics.getPrice(holding.ticker)
+                const priceData = await this.nomics.getPrice(holding.ticker)
                 holding.description = priceData.name
                 holding.price = parseFloat(priceData.price)
             }
-            this.cryptoHoldings.set(accountName, accountHoldings)
-        })
+            this.cryptoHoldings.set(accountName, accountHoldings);
+        }
+        return true;
     }
 
-    async setPersonalCapitalData(): Promise<void> {
-        // for each existing Capital Account
+    async setPersonalCapitalData(): Promise<boolean> {
+        console.log('setting Personal Capital data')
         this.capitalHoldings.forEach((capitalAccountHoldings, capitalAccountName) => {
             if (this.accounts.find((account) => account.name == capitalAccountName)) {
                 for (let capitalHolding of capitalAccountHoldings) {
@@ -99,6 +115,7 @@ export class PersonalCrypto {
                 }
             }
         })
+        return true;
     }
 }
 
