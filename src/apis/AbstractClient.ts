@@ -1,6 +1,8 @@
 export abstract class AbstractClient {
     constructor() { }
 
+    _proxy = "https://cors-anywhere.herokuapp.com/"
+
     async fetchInBackground(url: string, request?: RequestInit): Promise<any> {
         return await new Promise<any>((resolve, reject) => {
             // cancel if no response after timeout
@@ -22,6 +24,10 @@ export abstract class AbstractClient {
     }
 
     async fetchWithProxy(url: string, request?: RequestInit): Promise<Response> {
-        return await fetch("https://cors-anywhere.herokuapp.com/" + url, request)
+        return await fetch(this._proxy + url, request)
+    }
+
+    async fetchWithBackgroundProxy(url: string, request?: RequestInit): Promise<Response> {
+        return await this.fetchInBackground(this._proxy + url, request)
     }
 }
