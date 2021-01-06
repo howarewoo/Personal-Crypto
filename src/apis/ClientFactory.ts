@@ -1,7 +1,6 @@
 import { SupportedExchanges } from "../models/SupportedExchanges";
 import { SupportedWallets } from "../models/SupportedWallets";
 import { PersonalCryptoAccount } from "../models/PersonalCryptoAccount";
-import { AbstractClient } from "./AbstractClient"
 import { AbstractExchange } from "./exchanges/AbstractExchange";
 import { AbstractWallet } from "./wallets/AbstractWallet";
 
