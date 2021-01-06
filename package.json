@@ -7,7 +7,7 @@
         "clean": "rm -rf dist && cpy manifest.json dist && cpy src/assets/* dist/assets",
         "prebuild": "npm run clean",
         "build:contentscript-background": "webpack --config webpack.config.js",
-        "build:popup": "npm run build --prefix src/popup && cd src/popup/build && cpy '**/*' '../../../dist/popup' --parents",
+        "build:popup": "bash ./scripts/build.popup.sh",
         "build": "npm-run-all build:*",
         "prewatch": "npm run clean",
         "watch:contentscript-background": "webpack --config webpack.config.js -w",
@@ -46,7 +46,6 @@
         "webpack-cli": "^4.2.0"
     },
     "dependencies": {
-        "crypto-browserify": "^3.12.0",
         "crypto-js": "^3.1.9-1"
     }
 }

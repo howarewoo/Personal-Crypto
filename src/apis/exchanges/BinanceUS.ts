@@ -28,10 +28,8 @@ export class BinanceUS extends AbstractExchange {
 
     private async _getServerTime(): Promise<any> {
         const url = this.base + '/api/v3/time';
-        const headers = this._getHeaders();
-
-        const resp = await this.fetchInBackground(url)
-        return resp.data.serverTime
+        const data = await this.fetchInBackground(url)
+        return data.data.serverTime
     }
 
     async getHoldings(): Promise<PersonalCryptoHolding[]> {
@@ -58,14 +56,6 @@ export class BinanceUS extends AbstractExchange {
         }
 
         return holdings
-    }
-
-    async getPrice(ticker: string): Promise<number> {
-        const url = this.base + '/api/v3/avgPrice';
-        const headers = this._getHeaders();
-
-        const resp = await this.fetchInBackground(url + "?symbol=" + ticker + "USD")
-        return resp.data.price
     }
 }
 
