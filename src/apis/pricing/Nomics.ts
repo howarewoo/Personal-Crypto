@@ -16,8 +16,7 @@ export class Nomics extends AbstractClient {
         const url = this.base + '/currencies/ticker';
         const query = '?ids=' + ticker + '&key=' + this.APIKEY
 
-        const resp = await this.fetchWithProxy(url + query);
-        const data = await resp.json()
+        const data = (await this.fetchWithBackgroundProxy(url + query)).data;
         if (data.length > 0) {
             this.cache.set(ticker, data[0])
         }
