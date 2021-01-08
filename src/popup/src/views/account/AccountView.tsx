@@ -1,13 +1,14 @@
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import { useAccountActions } from "../../navigators/RootNavigatorContext";
+
 import { Button, Divider, Modal, Paper, TextField, Typography } from "@material-ui/core";
 import { DeleteOutline } from "@material-ui/icons";
-import { observer } from "mobx-react-lite";
-import React, { Fragment, useEffect, useImperativeHandle, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Header } from "../../assets/components/Header";
 
 import { PersonalCryptoAccount } from "../../../../models/PersonalCryptoAccount";
 import { SupportedExchangeInfo } from "../../../../models/SupportedExchanges";
-import { Header } from "../../assets/components/Header";
-import { useAccountActions } from "../../navigators/RootNavigatorContext";
 
 export const AccountView = observer((props: { account?: PersonalCryptoAccount }) => {
     const { deleteAccount } = useAccountActions()

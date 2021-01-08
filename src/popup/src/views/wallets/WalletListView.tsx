@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import { Avatar, Divider, Typography } from "@material-ui/core";
-
-
-import { Header } from "../../assets/components/Header";
-import { WalletListViewModel } from "./WalletListViewModel";
-import { ListItemLink } from "../../assets/components/ListItemLink";
-import { PersonalCryptoAccount } from "../../../../models/PersonalCryptoAccount";
-import { AccountView } from "../account/AccountView";
 import { useAccounts } from "../../navigators/RootNavigatorContext";
 
+import { Avatar, Divider, Typography } from "@material-ui/core";
+import { Header } from "../../assets/components/Header";
+import { ListItemLink } from "../../assets/components/ListItemLink";
+
+import { PersonalCryptoAccount } from "../../../../models/PersonalCryptoAccount";
+
+import { AccountView } from "../account/AccountView";
+
 export function WalletListView() {
-    const [behavior] = useState(new WalletListViewModel())
     const accounts = useAccounts().filter((a) => !!a.wallet);
     const [selected, setSelected] = useState<PersonalCryptoAccount>()
     let { path, url } = useRouteMatch();

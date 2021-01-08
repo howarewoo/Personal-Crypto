@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import { PersonalCryptoAccount } from "../../../../models/PersonalCryptoAccount";
-import { ExchangesModel } from "../../models/ExchangesModel";
 
 export class ExchangeListViewModel {
     constructor() {

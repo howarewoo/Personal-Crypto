@@ -42,8 +42,10 @@ export class PersonalCrypto {
         const pcAccounts = await this.personalCapital.getAccounts()
         this.cryptoHoldings.forEach((accountHoldings, accountName) => {
             const selectedAccount = pcAccounts.find(account => account.name === accountName);
-            for (let holding of accountHoldings) {
-                holding.userAccountId = selectedAccount.userAccountId
+            if(selectedAccount){
+                for (let holding of accountHoldings) {
+                    holding.userAccountId = selectedAccount.userAccountId
+                }
             }
         })
         return true;
@@ -89,7 +91,7 @@ export class PersonalCrypto {
 
     async setPersonalCapitalData(): Promise<boolean> {
         console.log('setting Personal Capital data')
-        this.capitalHoldings.forEach((capitalAccountHoldings, capitalAccountName) => {
+        for (let [capitalAccountName, capitalAccountHoldings] of Array.from(this.capitalHoldings.entries())) {
             if (this.accounts.find((account) => account.name == capitalAccountName)) {
                 for (let capitalHolding of capitalAccountHoldings) {
                     capitalHolding.quantity = 0;
@@ -114,7 +116,21 @@ export class PersonalCrypto {
                     }
                 }
             }
-        })
+            else {
+                for (let capitalHolding of capitalAccountHoldings) {
+                    if (capitalHolding.ticker?.startsWith("CRYPTO")) {
+                        let temp = capitalHolding.ticker.split(' ')
+                        let ticker = temp[temp.length - 1]
+                        const priceData = await this.nomics.getPrice(ticker)
+                        if (priceData) {
+                            capitalHolding.description = priceData.name
+                            capitalHolding.price = parseFloat(priceData.price)
+                            this.personalCapital.updateHolding(capitalHolding)
+                        }
+                    }
+                }
+            }
+        }
         return true;
     }
 }
