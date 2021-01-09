@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { Link, LinkProps, useLocation } from 'react-router-dom';
+
+import { ListItemAvatar } from '@material-ui/core';
+import { Omit } from '@material-ui/types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Link as RouterLink, LinkProps as RouterLinkProps, useLocation } from 'react-router-dom';
-import { Omit } from '@material-ui/types';
-import { Avatar, ListItemAvatar, ListItemSecondaryAction } from '@material-ui/core';
 
 export interface ListItemLinkProps {
     avatar?: React.ReactElement;
@@ -17,13 +18,14 @@ export interface ListItemLinkProps {
 }
 
 export function ListItemLink(props: ListItemLinkProps) {
-    const { avatar, rightIcon, primary, secondary, leftIcon, onClick, to } = props;
-    let location = useLocation();
+    const { avatar, rightIcon, primary, secondary, leftIcon, onClick} = props;
+    const location = useLocation();
+    const to = props.to || location.pathname;
 
-    const renderLink = React.useMemo(
+    const renderLink = useMemo(
         () =>
-            React.forwardRef<any, Omit<RouterLinkProps, 'to'>>((itemProps, ref) => (
-                <RouterLink to={to || location.pathname} ref={ref} {...itemProps} />
+            React.forwardRef<any, Omit<LinkProps, 'to'>>((itemProps, ref) => (
+                <Link to={to} ref={ref} {...itemProps} />
             )),
         [to],
     );

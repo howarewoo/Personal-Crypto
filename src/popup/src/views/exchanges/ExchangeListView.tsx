@@ -1,18 +1,17 @@
-import { Avatar, Divider, Typography } from "@material-ui/core";
-import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import { PersonalCryptoAccount } from "../../../../models/PersonalCryptoAccount";
-import { SupportedAccountTypes } from "../../../../models/SupportedAccountTypes";
+import { observer } from "mobx-react-lite";
+import { useAccounts } from "../../navigators/RootNavigatorContext";
+
+import { Avatar, Divider, Typography } from "@material-ui/core";
 import { Header } from "../../assets/components/Header";
 import { ListItemLink } from "../../assets/components/ListItemLink";
-import { useAccounts } from "../../navigators/RootNavigatorContext";
+
+import { PersonalCryptoAccount } from "../../../../models/PersonalCryptoAccount";
+
 import { AccountView } from "../account/AccountView";
-import { ExchangeListViewModel } from "./ExchangeListViewModel";
 
 export const ExchangeListView = observer(() => {
-    const [behavior] = useState(new ExchangeListViewModel())
     const accounts = useAccounts().filter((a) => !!a.exchange);
     const [selected, setSelected] = useState<PersonalCryptoAccount>()
     let { path, url } = useRouteMatch();

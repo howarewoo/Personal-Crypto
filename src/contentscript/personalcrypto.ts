@@ -1,9 +1,7 @@
 import { ClientFactory } from '../apis/ClientFactory'
 import { AbstractExchange } from '../apis/exchanges/AbstractExchange'
 import { PersonalCapital } from '../apis/personal_capital/PersonalCapital'
-import { Nomics } from '../apis/pricing/Nomics'
-
-
+import { CoinGecko } from '../apis/pricing/CoinGecko'
 
 import { PersonalCapitalHolding } from "../models/PersonalCapitalHolding";
 import { PersonalCryptoHolding } from '../models/PersonalCryptoHolding'
@@ -22,7 +20,7 @@ export class PersonalCrypto {
         );
     }
 
-    nomics: Nomics = new Nomics()
+    coingecko: CoinGecko = new CoinGecko();
     personalCapital: PersonalCapital;
     accounts: PersonalCryptoAccount[];
     capitalHoldings: Map<string, PersonalCapitalHolding[]> = new Map<string, PersonalCapitalHolding[]>()
@@ -31,25 +29,27 @@ export class PersonalCrypto {
     async run(): Promise<void> {
         await this.getPersonalCapitalData();
         await this.getExchangeData();
+        await this.getWalletData();
         await this.getPriceData();
         await this.getAccountIds();
         await this.setPersonalCapitalData();
     }
 
-    async getAccountIds(): Promise<boolean> {
+    private async getAccountIds(): Promise<void> {
         console.log('fetching Account IDs')
-        if (!this.cryptoHoldings.keys()) return false;
+        if (!this.cryptoHoldings.keys()) return;
         const pcAccounts = await this.personalCapital.getAccounts()
         this.cryptoHoldings.forEach((accountHoldings, accountName) => {
             const selectedAccount = pcAccounts.find(account => account.name === accountName);
-            for (let holding of accountHoldings) {
-                holding.userAccountId = selectedAccount.userAccountId
+            if (selectedAccount) {
+                for (let holding of accountHoldings) {
+                    holding.userAccountId = selectedAccount.userAccountId
+                }
             }
         })
-        return true;
     }
 
-    async getPersonalCapitalData(): Promise<boolean> {
+    private async getPersonalCapitalData(): Promise<void> {
         console.log('fetching Personal Capital account data')
         const holdings = await this.personalCapital.getHoldings()
         for (let holding of holdings) {
@@ -57,39 +57,36 @@ export class PersonalCrypto {
             temp.push(holding)
             this.capitalHoldings.set(holding.accountName, temp)
         }
-        return true;
     }
 
-    async getExchangeData(): Promise<boolean> {
+    private async getExchangeData(): Promise<void> {
         console.log('fetching Exchange data')
-        if (!this.accounts) return false;
+        if (!this.accounts) return;
         for (let account of this.accounts) {
             let client: AbstractExchange = ClientFactory.getClient(account);
             this.cryptoHoldings.set(account.name, await client.getHoldings())
         }
-        return true;
     }
 
-    async getWalletData(): Promise<void> {
+    private async getWalletData(): Promise<void> {
 
     }
 
-    async getPriceData(): Promise<boolean> {
+    private async getPriceData(): Promise<void> {
         console.log('fetching Price data')
         for (let [accountName, accountHoldings] of Array.from(this.cryptoHoldings.entries())) {
             for (let holding of accountHoldings) {
-                const priceData = await this.nomics.getPrice(holding.ticker)
+                const priceData = await this.coingecko.getPrice(holding.ticker)
                 holding.description = priceData.name
-                holding.price = parseFloat(priceData.price)
+                holding.price = priceData.price
             }
             this.cryptoHoldings.set(accountName, accountHoldings);
         }
-        return true;
     }
 
-    async setPersonalCapitalData(): Promise<boolean> {
+    private async setPersonalCapitalData(): Promise<void> {
         console.log('setting Personal Capital data')
-        this.capitalHoldings.forEach((capitalAccountHoldings, capitalAccountName) => {
+        for (let [capitalAccountName, capitalAccountHoldings] of Array.from(this.capitalHoldings.entries())) {
             if (this.accounts.find((account) => account.name == capitalAccountName)) {
                 for (let capitalHolding of capitalAccountHoldings) {
                     capitalHolding.quantity = 0;
@@ -104,7 +101,7 @@ export class PersonalCrypto {
 
                         // if crypto holding already exists, update
                         if (selectedCapitalHolding) {
-                            selectedCapitalHolding.quantity = Math.round((cryptoHolding.quantity + Number.EPSILON) * 100) / 100
+                            selectedCapitalHolding.quantity = cryptoHolding.quantity
                             selectedCapitalHolding.price = cryptoHolding.price
                             this.personalCapital.updateHolding(selectedCapitalHolding)
                         }
@@ -114,8 +111,21 @@ export class PersonalCrypto {
                     }
                 }
             }
-        })
-        return true;
+            else {
+                for (let capitalHolding of capitalAccountHoldings) {
+                    if (capitalHolding.ticker?.startsWith("CRYPTO")) {
+                        let temp = capitalHolding.ticker.split(' ')
+                        let ticker = temp[temp.length - 1]
+                        const priceData = await this.coingecko.getPrice(ticker)
+                        if (priceData) {
+                            capitalHolding.description = priceData.name
+                            capitalHolding.price = priceData.price
+                            this.personalCapital.updateHolding(capitalHolding)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

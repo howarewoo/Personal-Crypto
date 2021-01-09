@@ -1,39 +1,52 @@
 # Personal Crypto
 
-Personal Crypto is a free chrome extension for connecting your cryptocurrency exchanges and wallets to your [Personal Capital](https://pcap.rocks/adamwoo) dashboard.
+Personal Crypto is a free chrome extension for connecting your cryptocurrency exchanges and wallets to your [Personal Capital](https://pcap.rocks/adamwoo) dashboard. It will also update manually entered holding prices as long as the ticker is prefixed with "CRYPTO " (eg. "CRYPTO BTC").
 
-This code is still in development, so all feedback is welcome.
+This project is still in development, so all feedback is welcome.
+
+- [Personal Crypto](#personal-crypto)
+  - [Supported Accounts](#supported-accounts)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Disclaimer](#disclaimer)
+  - [Contributing](#contributing)
+  - [Donations](#donations)
+  - [License](#license)
 
 ## Supported Accounts
 
-| Account Types      | Date Added |
-| ----------- | ----------- |
-| Binance US      |  *Coming Soon*      |
-| Coinbase Pro   |  *Coming Soon*       |
-| Bitcoin Wallets     |   *Coming Soon*     |
+| Account Types                                                      | Date Added    |
+| ------------------------------------------------------------------ | ------------- |
+| [Binance US](https://accounts.binance.us/en/register?ref=52184783) | 01/07/2021    |
+| [Coinbase](https://www.coinbase.com/join/woo_sxd)                  | 01/07/2021    |
+| [Coinbase Pro](https://www.coinbase.com/join/woo_sxd)              | 01/07/2021    |
+| Bitcoin Wallets                                                    | *Coming Soon* |
+| Ethereum Wallets                                                   | *Coming Soon* |
+| NiceHash                                                           | *Coming Soon* |
 
+*Crypto Market Cap & Pricing Data Provided By [CoinGecko](https://www.coingecko.com)*
 
 ## Installation
 
 This extension is not available on the Chrome Web Store yet.
 
-You can load this extension by:
+You can load this extension by following these steps:
 
-1. cloning this repository
-2. installing the dependencies with ```npm install && cd src/popup && npm install```
-3. building the extension with npm scripts
-4. loading the unpacked extension onto your browser in developer mode. 
+1. Clone this repository
+2. Install the dependencies with ```npm install && cd src/popup && npm install```. (You will need NPM installed)
+3. Build the extension with npm scripts
+4. Load the unpacked extension onto your browser in developer mode. 
 
 ## Usage
 
 1. Create a manual investment holding account in Personal Capital. Make sure to give it a unique name.
 2. Create an API key with your exchange. (Be sure to set permissions to READ ONLY. See disclaimer below.)
-2. Open the extension popup.
-3. Click the "Add Account" menu option.
-4. Search for a supported account type.
-5. Select your crypto account type and fill in the information. (Make sure that this Account Name matches the Personal Captial account name.)
-6. Click Create. (Correct any validation issues and try again.)
-7. Refresh your Personal Capital browser tab
+3. Open the extension popup.
+4. Click the "Add Account" menu option.
+5. Search for a supported account type.
+6. Select your crypto account type and fill in the information. (Make sure that this Account Name matches the Personal Captial account name.)
+7. Click Create. (Correct any validation issues and try again.)
+8. Refresh your Personal Capital browser tab
 
 Your account holdings will be automattically added to your Personal Capital manual account. It make take a bit to display on the site. You can check the browser console to see what has been updated by pressing ```F12```.
 
@@ -49,7 +62,13 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Donations
 
-If you find this extension useful and would like to support my work, you can support this project using the links below. 
+If you find this extension useful and would like to support my work, you can send donations to the addresses below. 
+
+| Asset | Address                                          |
+| ----- | ------------------------------------------------ |
+| BTC   | ```bc1qnum2xrjgjkm6j04h5shtckl3hnglv6tspycfky``` |
+| ETH   | ```0x8e3d0BD47a031828D9d55c6B705855714aa03677``` |
+
 
 Thank you!
 

@@ -1,17 +1,19 @@
 import React from "react";
 
-import { createStyles, Divider, makeStyles, Theme } from "@material-ui/core";
-
+import { Divider } from "@material-ui/core";
+import { 
+    AccountBalanceOutlined, 
+    AccountBalanceWalletOutlined, 
+    Add, 
+    GitHub, 
+    ArrowRight,
+    Launch } from "@material-ui/icons";
 import { ListItemLink } from "../../assets/components/ListItemLink";
 
-import { SearchBar } from "../../assets/components/SearchBar";
-import { AccountBalanceOutlined, AccountBalanceWalletOutlined, Add, GitHub, ArrowRight } from "@material-ui/icons";
 
 export function HomeView() {
     return (
         <div style={{ width: '100%' }}>
-            <SearchBar placeholder="Search Accounts" />
-            <Divider />
             <ListItemLink
                 rightIcon={<AccountBalanceOutlined />}
                 primary="Exchanges"
@@ -32,7 +34,7 @@ export function HomeView() {
             <ListItemLink
                 rightIcon={<GitHub />}
                 primary="Github"
-                leftIcon={<ArrowRight />}
+                leftIcon={<Launch />}
                 onClick={() => window.open("https://github.com/awoox2/personal-crypto", "_blank")} />
         </div>
     );

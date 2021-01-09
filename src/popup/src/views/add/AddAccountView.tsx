@@ -1,17 +1,17 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import { useAccountActions, useAccounts } from "../../navigators/RootNavigatorContext";
 
-import { Button, Divider, ListItem, ListSubheader, makeStyles, TextField, Typography } from "@material-ui/core";
+import { Button, Divider, ListItem, ListSubheader, TextField, Typography } from "@material-ui/core";
 import { useAutocomplete } from "@material-ui/lab";
-
 import { Header } from "../../assets/components/Header";
+import { SearchBar } from "../../assets/components/SearchBar";
 
 import { IExchangeInfo, SupportedExchangeInfo } from "../../../../models/SupportedExchanges";
 import { IWalletInfo, SupportedWalletInfo } from "../../../../models/SupportedWallets";
-import { SearchBar } from "../../assets/components/SearchBar";
+
 import { AddAccountViewModel } from "./AddAccountViewModel";
-import { useAccountActions, useAccounts } from "../../navigators/RootNavigatorContext";
-import { observer } from "mobx-react-lite";
-import { useHistory } from "react-router-dom";
 
 let supported: (IExchangeInfo | IWalletInfo)[] = [];
 supported = supported.concat(SupportedExchangeInfo, SupportedWalletInfo);
