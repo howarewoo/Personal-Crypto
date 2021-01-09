@@ -28,7 +28,7 @@ export class BinanceUS extends AbstractExchange {
 
     private async _getServerTime(): Promise<any> {
         const url = this.base + '/api/v3/time';
-        const data = await this.fetchInBackground(url)
+        const data = await this.fetchInBackground(url);
         return data.data.serverTime
     }
 

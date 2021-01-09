@@ -24,7 +24,7 @@ This project is still in development, so all feedback is welcome.
 | Ethereum Wallets                                                   | *Coming Soon* |
 | NiceHash                                                           | *Coming Soon* |
 
-*Crypto Market Cap & Pricing Data Provided By [Nomics](https://nomics.com)*
+*Crypto Market Cap & Pricing Data Provided By [CoinGecko](https://www.coingecko.com)*
 
 ## Installation
 
