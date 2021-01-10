@@ -44,11 +44,11 @@ You can load this extension by following these steps:
 3. Open the extension popup.
 4. Click the "Add Account" menu option.
 5. Search for a supported account type.
-6. Select your crypto account type and fill in the information. (Make sure that this Account Name matches the Personal Captial account name.)
+6. Select your crypto account type and fill in the information. (Make sure that this Account Name matches the Personal Capital account name.)
 7. Click Create. (Correct any validation issues and try again.)
 8. Refresh your Personal Capital browser tab
 
-Your account holdings will be automattically added to your Personal Capital manual account. It make take a bit to display on the site. You can check the browser console to see what has been updated by pressing ```F12```.
+Your account holdings will be automatically added to your Personal Capital manual account. It make take a bit to display on the site. You can check the browser console to see what has been updated by pressing ```F12```.
 
 ## Disclaimer
 
