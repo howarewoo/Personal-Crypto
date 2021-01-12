@@ -26,7 +26,9 @@ export const ExchangeListView = observer(() => {
                         accounts.map((account) => {
                             return (
                                 <ListItemLink
-                                    avatar={<Avatar alt={account.exchange} src="/static/images/avatar/1.jpg" />}
+                                    avatar={<Avatar 
+                                        alt={account.exchange} 
+                                        src="/static/images/avatar/1.jpg" />}
                                     primary={account.exchange}
                                     secondary={account.name}
                                     onClick={() => setSelected(account)}

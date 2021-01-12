@@ -8,6 +8,7 @@ import { BinanceUS } from "./exchanges/BinanceUS";
 import { Coinbase } from "./exchanges/Coinbase";
 import { CoinbasePro } from "./exchanges/CoinbasePro";
 
+import { Bitcoin } from "./wallets/Bitcoin";
 
 
 export class ClientFactory {
@@ -39,6 +40,9 @@ export class ClientFactory {
 
     static getWalletClient(account: PersonalCryptoAccount): AbstractWallet | undefined {
         switch (account.wallet) {
+            case (SupportedWallets.BITCOIN): {
+                return new Bitcoin(account.options.address);
+            }
             default:
                 break;
         }
