@@ -6,6 +6,7 @@ import { CoinGecko } from '../apis/pricing/CoinGecko'
 import { PersonalCapitalHolding } from "../models/PersonalCapitalHolding";
 import { PersonalCryptoHolding } from '../models/PersonalCryptoHolding'
 import { PersonalCryptoAccount } from '../models/PersonalCryptoAccount'
+import { AbstractWallet } from '../apis/wallets/AbstractWallet';
 
 
 export class PersonalCrypto {
@@ -14,7 +15,6 @@ export class PersonalCrypto {
         chrome.storage.sync.get(
             'personal_crypto_accounts',
             (result) => {
-                console.log("Personal Crypto Accounts from Chrome Storage:", result.personal_crypto_accounts);
                 this.accounts = result.personal_crypto_accounts || [];
             }
         );
@@ -28,8 +28,7 @@ export class PersonalCrypto {
 
     async run(): Promise<void> {
         await this.getPersonalCapitalData();
-        await this.getExchangeData();
-        await this.getWalletData();
+        await this.getCryptoData();
         await this.getPriceData();
         await this.getAccountIds();
         await this.setPersonalCapitalData();
@@ -59,17 +58,13 @@ export class PersonalCrypto {
         }
     }
 
-    private async getExchangeData(): Promise<void> {
-        console.log('fetching Exchange data')
+    private async getCryptoData(): Promise<void> {
+        console.log('fetching Crypto data')
         if (!this.accounts) return;
         for (let account of this.accounts) {
-            let client: AbstractExchange = ClientFactory.getClient(account);
+            let client: AbstractExchange | AbstractWallet = ClientFactory.getClient(account);
             this.cryptoHoldings.set(account.name, await client.getHoldings())
         }
-    }
-
-    private async getWalletData(): Promise<void> {
-
     }
 
     private async getPriceData(): Promise<void> {

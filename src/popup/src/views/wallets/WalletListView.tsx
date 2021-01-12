@@ -25,7 +25,9 @@ export function WalletListView() {
                         accounts.map((account) => {
                             return (
                                 <ListItemLink
-                                    avatar={<Avatar alt={account.wallet} src="/static/images/avatar/1.jpg" />}
+                                    avatar={<Avatar 
+                                        alt={account.wallet} 
+                                        src="/static/images/avatar/1.jpg" />}
                                     primary={account.wallet}
                                     secondary={account.name}
                                     onClick={() => setSelected(account)}

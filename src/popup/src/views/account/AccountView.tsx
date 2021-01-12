@@ -8,14 +8,21 @@ import { DeleteOutline } from "@material-ui/icons";
 import { Header } from "../../assets/components/Header";
 
 import { PersonalCryptoAccount } from "../../../../models/PersonalCryptoAccount";
-import { SupportedExchangeInfo } from "../../../../models/SupportedExchanges";
+import { IExchangeInfo, SupportedExchangeInfo } from "../../../../models/SupportedExchanges";
+import { IWalletInfo, SupportedWalletInfo } from "../../../../models/SupportedWallets";
 
 export const AccountView = observer((props: { account?: PersonalCryptoAccount }) => {
     const { deleteAccount } = useAccountActions()
     const history = useHistory()
     const { account } = props
     const [modalVisible, setModalVisible] = useState(false)
-    const exchangeInfo = SupportedExchangeInfo.find((exchange) => exchange.name === props.account?.exchange)
+    let accountInfo: IExchangeInfo | IWalletInfo | undefined;
+    if (account?.exchange) {
+        accountInfo = SupportedExchangeInfo.find((exchange) => exchange.name === props.account?.exchange)
+    }
+    else if (account?.wallet) {
+        accountInfo = SupportedWalletInfo.find((wallet) => wallet.name === props.account?.wallet)
+    }
 
     const handleDelete = () => {
         console.log('Delete Pressed')
@@ -53,7 +60,7 @@ export const AccountView = observer((props: { account?: PersonalCryptoAccount })
     return (
         <div>
             <Header
-                title={account?.exchange}
+                title={account?.exchange || account?.wallet}
                 right={<DeleteOutline />}
                 rightOnClick={() => setModalVisible(true)} />
             <Divider />
@@ -64,7 +71,7 @@ export const AccountView = observer((props: { account?: PersonalCryptoAccount })
                     label="Account Name"
                     value={account?.name}
                     disabled />
-                {exchangeInfo?.options.map((option) => (
+                {accountInfo?.options.map((option) => (
                     < TextField
                         style={{ width: "100%" }}
                         label={option.label}
