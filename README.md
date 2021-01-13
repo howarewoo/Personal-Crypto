@@ -20,7 +20,7 @@ This project is still in development, so all feedback is welcome.
 | [Binance US](https://accounts.binance.us/en/register?ref=52184783) | 01/07/2021    |
 | [Coinbase](https://www.coinbase.com/join/woo_sxd)                  | 01/07/2021    |
 | [Coinbase Pro](https://www.coinbase.com/join/woo_sxd)              | 01/07/2021    |
-| Bitcoin Wallets                                                    | *Coming Soon* |
+| Bitcoin Wallets                                                    | 01/11/2021    |
 | Ethereum Wallets                                                   | *Coming Soon* |
 | NiceHash                                                           | *Coming Soon* |
 
@@ -28,9 +28,9 @@ This project is still in development, so all feedback is welcome.
 
 ## Installation
 
-This extension is not available on the Chrome Web Store yet.
+This extension is available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/personal-crypto/lgfflokdinmbpcjnhkdaiajfgalpnkcl).
 
-You can load this extension by following these steps:
+You can also load this extension by following these steps:
 
 1. Clone this repository
 2. Install the dependencies with ```npm install && cd src/popup && npm install```. (You will need NPM installed)
@@ -48,7 +48,7 @@ You can load this extension by following these steps:
 7. Click Create. (Correct any validation issues and try again.)
 8. Refresh your Personal Capital browser tab
 
-Your account holdings will be automatically added to your Personal Capital manual account. It make take a bit to display on the site. You can check the browser console to see what has been updated by pressing ```F12```.
+Your account holdings will be automatically added to your Personal Capital manual account. It may take a bit to display on the site. You can check the browser console to see what has been updated by pressing ```F12```.
 
 ## Disclaimer
 
