@@ -1,7 +1,8 @@
 import { IAccountOption, SupportedAccountTypes } from "./SupportedAccountTypes";
 
 export enum SupportedWallets {
-    BITCOIN = "Bitcoin"
+    BITCOIN = "Bitcoin",
+    ETHEREUM = "Ethereum"
 }
 
 export interface IWalletInfo {
@@ -13,6 +14,16 @@ export interface IWalletInfo {
 export const SupportedWalletInfo: IWalletInfo[] = [
     {
         name: SupportedWallets.BITCOIN,
+        type: SupportedAccountTypes.WALLET,
+        options: [
+            {
+                id: 'address',
+                label: 'Address'
+            },
+        ]
+    },
+    {
+        name: SupportedWallets.ETHEREUM,
         type: SupportedAccountTypes.WALLET,
         options: [
             {

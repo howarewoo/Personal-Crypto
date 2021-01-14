@@ -1,4 +1,6 @@
 # Personal Crypto
+![Chrome Web Store](https://img.shields.io/chrome-web-store/v/lgfflokdinmbpcjnhkdaiajfgalpnkcl?style=flat-square) 
+![npm type definitions](https://img.shields.io/npm/types/typescript?style=flat-square)
 
 Personal Crypto is a free chrome extension for connecting your cryptocurrency exchanges and wallets to your [Personal Capital](https://pcap.rocks/adamwoo) dashboard. It will also update manually entered holding prices as long as the ticker is prefixed with "CRYPTO " (eg. "CRYPTO BTC").
 
@@ -21,7 +23,7 @@ This project is still in development, so all feedback is welcome.
 | [Coinbase](https://www.coinbase.com/join/woo_sxd)                  | 01/07/2021    |
 | [Coinbase Pro](https://www.coinbase.com/join/woo_sxd)              | 01/07/2021    |
 | Bitcoin Wallets                                                    | 01/11/2021    |
-| Ethereum Wallets                                                   | *Coming Soon* |
+| Ethereum Wallets                                                   | 11/14/2021    |
 | NiceHash                                                           | *Coming Soon* |
 
 *Crypto Market Cap & Pricing Data Provided By [CoinGecko](https://www.coingecko.com)*

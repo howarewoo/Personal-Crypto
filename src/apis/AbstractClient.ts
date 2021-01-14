@@ -3,7 +3,7 @@ export abstract class AbstractClient {
 
     _proxy = "https://personal-crypto.herokuapp.com/"
 
-    protected async fetchInBackground(url: string, request?: RequestInit): Promise<any> {
+    protected async fetchInBackground(url: string, request?: RequestInit): Promise<IBackgroundResponse> {
         return await new Promise<any>((resolve, reject) => {
             // cancel if no response after timeout
             const timeout = setTimeout(() => {
@@ -27,7 +27,12 @@ export abstract class AbstractClient {
         return await fetch(this._proxy + url, request)
     }
 
-    protected async fetchWithBackgroundProxy(url: string, request?: RequestInit): Promise<any> {
+    protected async fetchWithBackgroundProxy(url: string, request?: RequestInit): Promise<IBackgroundResponse> {
         return await this.fetchInBackground(this._proxy + url, request)
     }
+}
+
+interface IBackgroundResponse{
+    data?: any, 
+    ok: boolean
 }

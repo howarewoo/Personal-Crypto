@@ -18,7 +18,7 @@ export class PersonalCapital extends AbstractClient {
         return formdata;
     }
 
-    async getHoldings(accountNames?: string[]): Promise<PersonalCapitalHolding[]> {
+    async getHoldings(): Promise<PersonalCapitalHolding[]> {
         const url = this.base + '/api/invest/getHoldings';
         const formdata = this.getCredentialFormData();
         console.log("Fetching holdings from Personal Capital: " + url)
@@ -28,23 +28,6 @@ export class PersonalCapital extends AbstractClient {
         });
         const data = (await resp.json()).spData;
         return data.holdings;
-    }
-
-    async getAccount(accountName: string) {
-        const url = this.base + 'api/newaccount/getAccounts2';
-        const formdata = this.getCredentialFormData();
-        const resp = await fetch(url, {
-            method: 'POST',
-            body: formdata,
-        });
-        if (resp.ok) {
-            const data = await resp.json();
-            const accounts = data.spData.accounts
-            const selectedAccount = accounts.find(account => account.name === accountName);
-            console.log(selectedAccount)
-            return selectedAccount
-        }
-        return
     }
 
     async getAccounts() {

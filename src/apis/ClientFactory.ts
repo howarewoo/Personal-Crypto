@@ -9,7 +9,7 @@ import { Coinbase } from "./exchanges/Coinbase";
 import { CoinbasePro } from "./exchanges/CoinbasePro";
 
 import { Bitcoin } from "./wallets/Bitcoin";
-
+import { Ethereum } from "./wallets/Ethereum";
 
 export class ClientFactory {
 
@@ -42,6 +42,9 @@ export class ClientFactory {
         switch (account.wallet) {
             case (SupportedWallets.BITCOIN): {
                 return new Bitcoin(account.options.address);
+            }
+            case (SupportedWallets.ETHEREUM): {
+                return new Ethereum(account.options.address);
             }
             default:
                 break;

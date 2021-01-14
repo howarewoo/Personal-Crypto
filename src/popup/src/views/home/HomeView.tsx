@@ -1,13 +1,14 @@
 import React from "react";
 
 import { Divider } from "@material-ui/core";
-import { 
-    AccountBalanceOutlined, 
-    AccountBalanceWalletOutlined, 
-    Add, 
-    GitHub, 
+import {
+    AccountBalanceOutlined,
+    AccountBalanceWalletOutlined,
+    Add,
+    GitHub,
     ArrowRight,
-    Launch } from "@material-ui/icons";
+    Launch
+} from "@material-ui/icons";
 import { ListItemLink } from "../../assets/components/ListItemLink";
 
 
