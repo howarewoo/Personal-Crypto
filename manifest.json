@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Personal Crypto",
     "short_name": "Personal Crypto",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Chrome Extension for connecting cryptocurrency accounts to Personal Capital",
     "permissions": [
         "storage"

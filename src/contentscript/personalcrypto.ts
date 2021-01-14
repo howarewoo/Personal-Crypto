@@ -1,7 +1,7 @@
 import { ClientFactory } from '../apis/ClientFactory'
 import { AbstractExchange } from '../apis/exchanges/AbstractExchange'
 import { PersonalCapital } from '../apis/personal_capital/PersonalCapital'
-import { CoinGecko } from '../apis/pricing/CoinGecko'
+import { CoinGecko, ICoinInfo } from '../apis/pricing/CoinGecko'
 
 import { PersonalCapitalHolding } from "../models/PersonalCapitalHolding";
 import { PersonalCryptoHolding } from '../models/PersonalCryptoHolding'
@@ -70,10 +70,28 @@ export class PersonalCrypto {
     private async getPriceData(): Promise<void> {
         console.log('fetching Price data')
         for (let [accountName, accountHoldings] of Array.from(this.cryptoHoldings.entries())) {
+            let infoMap = new Map<string, ICoinInfo>();
+            let coinIds = []
             for (let holding of accountHoldings) {
-                const priceData = await this.coingecko.getPrice(holding.ticker)
-                holding.description = priceData.name
-                holding.price = priceData.price
+                let info = await this.coingecko.getCoinInfo(holding.ticker)
+                if (info) {
+                    infoMap.set(holding.ticker, info)
+                    coinIds.push(info.id)
+                }
+            }
+
+            const prices = await this.coingecko.getPrices(coinIds)
+
+            for (let i = 0; i < accountHoldings.length; i++) {
+                let holding = accountHoldings[i]
+                if (infoMap.has(holding.ticker)) {
+                    let info = infoMap.get(holding.ticker)
+                    holding.description = info.name
+                    holding.price = prices[info.id].usd
+                }
+                else {
+                    accountHoldings.splice(i--, 1)
+                }
             }
             this.cryptoHoldings.set(accountName, accountHoldings);
         }
@@ -82,42 +100,71 @@ export class PersonalCrypto {
     private async setPersonalCapitalData(): Promise<void> {
         console.log('setting Personal Capital data')
         for (let [capitalAccountName, capitalAccountHoldings] of Array.from(this.capitalHoldings.entries())) {
-            if (this.accounts.find((account) => account.name == capitalAccountName)) {
-                for (let capitalHolding of capitalAccountHoldings) {
-                    capitalHolding.quantity = 0;
+            // if the current capital account matches a crypto account
+            let cryptoAccount = this.accounts.find((account) => account.name == capitalAccountName)
+            if (cryptoAccount) {
+                this.updateAccount(cryptoAccount, capitalAccountHoldings)
+            }
+            else {
+                this.updateManualAccountHoldings(capitalAccountHoldings)
+            }
+        }
+    }
+
+    private _getTickerFromCapitalHolding(holding: PersonalCapitalHolding): string {
+        if (!holding.ticker.startsWith("CRYPTO")) return "";
+
+        let tickerArray = holding.ticker.split(' ');
+        if (tickerArray.length > 1) {
+            return tickerArray[tickerArray.length - 1]
+        }
+        return ""
+    }
+
+    private async updateAccount(cryptoAccount: PersonalCryptoAccount, capitalAccountHoldings: PersonalCapitalHolding[]) {
+        let cryptoAccountHoldings = this.cryptoHoldings.get(cryptoAccount.name) || []
+
+        // loop through and update exsiting holdings on Personal Capital
+        for (let capitalHolding of capitalAccountHoldings) {
+            if (capitalHolding.ticker.startsWith("CRYPTO")) {
+                let ticker = this._getTickerFromCapitalHolding(capitalHolding)
+                let cryptoHolding = cryptoAccountHoldings.find((ca) => ca.ticker == ticker)
+                if (cryptoHolding) {
+                    capitalHolding.quantity = cryptoHolding.quantity
+                    capitalHolding.price = cryptoHolding.price
+                    this.personalCapital.updateHolding(capitalHolding)
                 }
-
-                let cryptoAccountHoldings = this.cryptoHoldings.get(capitalAccountName)
-                if (cryptoAccountHoldings) {
-                    // for each crypto holding in the matching account
-                    for (let cryptoHolding of cryptoAccountHoldings) {
-                        // find existing crypto holding
-                        let selectedCapitalHolding = capitalAccountHoldings.find((h) => h.ticker.endsWith(cryptoHolding.ticker))
-
-                        // if crypto holding already exists, update
-                        if (selectedCapitalHolding) {
-                            selectedCapitalHolding.quantity = cryptoHolding.quantity
-                            selectedCapitalHolding.price = cryptoHolding.price
-                            this.personalCapital.updateHolding(selectedCapitalHolding)
-                        }
-                        else {
-                            this.personalCapital.addHolding(cryptoHolding)
-                        }
+                else {
+                    const priceData = await this.coingecko.getPrice(ticker)
+                    if (priceData) {
+                        capitalHolding.quantity = 0;
+                        capitalHolding.description = priceData.name
+                        capitalHolding.price = priceData.price
+                        this.personalCapital.updateHolding(capitalHolding)
                     }
                 }
             }
-            else {
-                for (let capitalHolding of capitalAccountHoldings) {
-                    if (capitalHolding.ticker?.startsWith("CRYPTO")) {
-                        let temp = capitalHolding.ticker.split(' ')
-                        let ticker = temp[temp.length - 1]
-                        const priceData = await this.coingecko.getPrice(ticker)
-                        if (priceData) {
-                            capitalHolding.description = priceData.name
-                            capitalHolding.price = priceData.price
-                            this.personalCapital.updateHolding(capitalHolding)
-                        }
-                    }
+        }
+
+        // loop through all crypto holdings and add any missing holdings to Personal Capital
+        for (let cryptoHolding of cryptoAccountHoldings) {
+            if (!capitalAccountHoldings.find((h) => cryptoHolding.ticker == this._getTickerFromCapitalHolding(h))) {
+                this.personalCapital.addHolding(cryptoHolding)
+            }
+        }
+
+    }
+
+    private async updateManualAccountHoldings(capitalAccountHoldings: PersonalCapitalHolding[]){
+        for (let capitalHolding of capitalAccountHoldings) {
+            if (capitalHolding.ticker?.startsWith("CRYPTO")) {
+                let temp = capitalHolding.ticker.split(' ')
+                let ticker = temp[temp.length - 1]
+                const priceData = await this.coingecko.getPrice(ticker)
+                if (priceData) {
+                    capitalHolding.description = priceData.name
+                    capitalHolding.price = priceData.price
+                    this.personalCapital.updateHolding(capitalHolding)
                 }
             }
         }

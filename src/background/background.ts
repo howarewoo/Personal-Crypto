@@ -8,7 +8,10 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
           if (resp.ok) {
             const data = await resp.json();
             console.log(data)
-            sendResponse(data);
+            sendResponse({
+              data,
+              ok: true
+            });
           } else {
             throw new Error('unsuccessful request');
           }

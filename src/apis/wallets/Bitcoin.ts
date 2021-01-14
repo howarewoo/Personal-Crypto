@@ -13,7 +13,8 @@ export class Bitcoin extends AbstractWallet {
     async getHoldings(): Promise<PersonalCryptoHolding[]> {
         const url: string = this.base + '/address/' + this.ADDRESS;
 
-        const data = (await this.fetchInBackground(url)).data
+        const resp = await this.fetchInBackground(url)
+        const data = resp.data.data
 
         const holdings: PersonalCryptoHolding[] = [];
         const quantity = data.balance / 100000000; // satoshis
