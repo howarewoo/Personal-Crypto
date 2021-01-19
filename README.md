@@ -55,9 +55,10 @@ Your account holdings will be automatically added to your Personal Capital manua
 
 ## Disclaimer
 
-Use this extension at your own risk. I am not responsible for any funds lost from improperly secured API keys. API keys added to this extension are NOT secure by default and could potentially be accessed by the browser. "Read only" security should be set on the exchange when creating the API key.
+This project was developed for fun. Use this extension at your own risk. I am not responsible for any consequences of using this project, including but not limited to:
 
-If you are uncomfortable with the browser storing your API keys, do not use this extension.
+- any funds lost from improperly secured API keys. API keys added to this extension are not secure by default and could potentially be accessed by the browser. "Read only" security should be set on the exchange when creating the API key. API secret keys are never sent to from your browser by this application unless in an encrypted request signature.
+- any actions taken by Personal Capital for Terms of Service violations
 
 ## Contributing
 
@@ -65,7 +66,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Donations
 
-If you find this extension useful and would like to support my work, you can send donations to the addresses below. 
+If you find this extension useful and would like to support my work, you can send donations to the addresses below. This helps me keep the proxy server running.
 
 | Asset | Address                                          |
 | ----- | ------------------------------------------------ |
