@@ -1,7 +1,12 @@
 # Personal Crypto
-![Chrome Web Store](https://img.shields.io/chrome-web-store/v/lgfflokdinmbpcjnhkdaiajfgalpnkcl?style=flat-square) 
-![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/lgfflokdinmbpcjnhkdaiajfgalpnkcl?style=flat-square)
+
+[![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/lgfflokdinmbpcjnhkdaiajfgalpnkcl?style=flat-square)][store_link]
+[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/lgfflokdinmbpcjnhkdaiajfgalpnkcl?style=flat-square)][store_link]
+[![Chrome Web Store Ratings](https://img.shields.io/chrome-web-store/rating/lgfflokdinmbpcjnhkdaiajfgalpnkcl?style=flat-square)][store_link]
 ![npm type definitions](https://img.shields.io/npm/types/typescript?style=flat-square)
+
+[store_link]:  https://chrome.google.com/webstore/detail/personal-crypto/lgfflokdinmbpcjnhkdaiajfgalpnkcl
+
 
 Personal Crypto is a free chrome extension for connecting your cryptocurrency exchanges and wallets to your [Personal Capital](https://pcap.rocks/adamwoo) dashboard. It will also update manually entered holding prices as long as the ticker is prefixed with "CRYPTO " (eg. "CRYPTO BTC").
 
