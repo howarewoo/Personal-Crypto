@@ -14,9 +14,9 @@
         "watch:popup": "npm run watch:build --prefix src/popup",
         "watch": "npm-run-all --parallel watch:*",
         "zip": "bestzip extension.zip dist/*",
+        "heroku-postbuild": "",
         "server": "node src/proxy/server.js"
     },
-    "heroku-run-build-script": false,
     "repository": {
         "type": "git",
         "url": "git+https://github.com/awoox2/personal-crypto.git"
