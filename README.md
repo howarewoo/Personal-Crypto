@@ -30,7 +30,6 @@ This project is still in development, so all feedback is welcome.
 | [Coinbase Pro](https://www.coinbase.com/join/woo_sxd)              | 01/07/2021    |
 | Bitcoin Wallets                                                    | 01/11/2021    |
 | Ethereum Wallets                                                   | 11/14/2021    |
-| NiceHash                                                           | *Coming Soon* |
 
 *Crypto Market Cap & Pricing Data Provided By [CoinGecko](https://www.coingecko.com)*
 
