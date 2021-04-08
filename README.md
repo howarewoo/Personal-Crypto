@@ -31,8 +31,6 @@ This project is still in development, so all feedback is welcome.
 | Bitcoin Wallets                                                    | 01/11/2021    |
 | Ethereum Wallets                                                   | 11/14/2021    |
 
-*Crypto Market Cap & Pricing Data Provided By [CoinGecko](https://www.coingecko.com)*
-
 ## Installation
 
 This extension is available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/personal-crypto/lgfflokdinmbpcjnhkdaiajfgalpnkcl).
