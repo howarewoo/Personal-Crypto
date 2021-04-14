@@ -7,6 +7,7 @@ import { AbstractWallet } from "./wallets/AbstractWallet";
 import { BinanceUS } from "./exchanges/BinanceUS";
 import { Coinbase } from "./exchanges/Coinbase";
 import { CoinbasePro } from "./exchanges/CoinbasePro";
+import { KuCoin } from "./exchanges/KuCoin";
 
 import { Bitcoin } from "./wallets/Bitcoin";
 import { Ethereum } from "./wallets/Ethereum";
@@ -21,7 +22,7 @@ export class ClientFactory {
             return this.getWalletClient(account)
         }
     }
-
+    
     static getExchangeClient(account: PersonalCryptoAccount): AbstractExchange | undefined {
         switch (account.exchange) {
             case (SupportedExchanges.BINANCE_US): {
@@ -32,6 +33,9 @@ export class ClientFactory {
             }
             case (SupportedExchanges.COINBASE_PRO): {
                 return new CoinbasePro(account.options.key, account.options.secret, account.options.passphrase);
+            }
+            case (SupportedExchanges.KUCOIN): {
+                return new KuCoin(account.options.version, account.options.key, account.options.secret, account.options.passphrase);
             }
             default:
                 break;
@@ -52,4 +56,3 @@ export class ClientFactory {
         return;
     }
 }
-
