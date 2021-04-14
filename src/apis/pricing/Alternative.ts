@@ -1,5 +1,6 @@
 
 import { AbstractClient } from "../AbstractClient";
+import { overrideTickers } from "./OverrideTickers"
 
 export class Alternative extends AbstractClient {
     constructor() {
@@ -19,6 +20,10 @@ export class Alternative extends AbstractClient {
     async getCoinInfo(ticker: string): Promise<ICoinInfo> {
         if (this.coinList.length == 0) {
             this.coinList = await this._getCoinList()
+        }
+
+        if (overrideTickers.has(ticker)) {
+            ticker = overrideTickers.get(ticker)
         }
 
         const CoinInfo = this.coinList.find((coin) => (
