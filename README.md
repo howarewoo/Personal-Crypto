@@ -73,7 +73,7 @@ If you find this extension useful and would like to support my work, you can sen
 | Asset | Address                                          |
 | ----- | ------------------------------------------------ |
 | BTC   | ```bc1qgcgggt7gda7rlh93tjju7qnxxxg5yqwyt0z65u``` |
-| ETH   | ```0x48951EF9db75D3c3543D6E91C88d27F86CC11972``` |
+| ETH   | ```0x4098C4A74F7a55a72A8de2ecf37Ef50c3a887D50``` |
 
 
 Thank you!
