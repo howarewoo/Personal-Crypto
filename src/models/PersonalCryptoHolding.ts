@@ -1,5 +1,5 @@
 export interface PersonalCryptoHolding{
-    userAccountId?: string;
+    userAccountId?: number;
     description?: string;
     ticker: string;
     quantity: number;

@@ -1,6 +1,7 @@
 import { PersonalCryptoHolding } from "../../models/PersonalCryptoHolding";
 import { PersonalCapitalHolding } from "../../models/PersonalCapitalHolding";
 import { AbstractClient } from "../AbstractClient";
+import { SupportedExchanges } from "../../models/SupportedExchanges";
 
 export class PersonalCapital extends AbstractClient {
     constructor(csrf: string) {
@@ -61,7 +62,7 @@ export class PersonalCapital extends AbstractClient {
         }
     }
 
-    async addHolding(holding: PersonalCryptoHolding) {
+    async addManualHolding(holding: PersonalCryptoHolding) {
         console.log('adding holding:', holding.ticker)
         const url = this.base + '/api/account/addHolding';
         const formdata = this.getCredentialFormData();
@@ -81,4 +82,41 @@ export class PersonalCapital extends AbstractClient {
             console.log(data.spHeader.errors)
         }
     }
+
+    async addCryptoHolding(holding: PersonalCryptoHolding, exchange?: SupportedExchanges) {
+        console.log('adding holding:', holding.ticker)
+        const url = this.base + '/api/account/addHolding';
+        const formdata = this.getCredentialFormData();
+
+        holding.description = [
+            holding.ticker,
+            exchange ? exchangeSource.get(exchange) : "coinbase",
+        ].join('.')
+
+        holding.ticker = [
+            holding.ticker,
+            exchange ? exchangeSource.get(exchange) : "coinbase",
+            "COIN"
+        ].join('.')
+
+        for (let key in holding) {
+            let value: string | Blob = holding[key]
+            formdata.append(key, value);
+        }
+        const resp = await fetch(url, {
+            method: 'POST',
+            body: formdata,
+        });
+        if (!resp.ok) {
+            const data = await resp.json()
+            console.log(data.spHeader.errors)
+        }
+    }
 }
+
+const exchangeSource = new Map([
+    [SupportedExchanges.BINANCE_US, "binanceusa"],
+    [SupportedExchanges.COINBASE, "coinbase"],
+    [SupportedExchanges.COINBASE_PRO, "coinbase"],
+    [SupportedExchanges.KUCOIN, "Kucoin"],
+])
