@@ -1,5 +1,5 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Personal Crypto",
     "short_name": "Personal Crypto",
     "version": "0.1.2",
@@ -7,25 +7,25 @@
     "permissions": [
         "storage"
     ],
-    "browser_action": {
+    "action": {
         "default_popup": "popup/index.html",
         "default_title": "Personal Crypto"
     },
     "icons": {
         "256": "./assets/bitcoin256.png"
     },
-    "content_scripts": [{
-        "js": [
-            "contentscript.js"
-        ],
-        "matches": [
-            "https://home.personalcapital.com/page/login/app*"
-        ]
-    }],
+    "content_scripts": [
+        {
+            "js": [
+                "contentscript.js"
+            ],
+            "matches": [
+                "https://home.personalcapital.com/page/login/app*"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
     "background": {
-        "scripts": [
-            "background.js"
-        ],
-        "persistent": false
+        "service_worker": "background.js"
     }
 }

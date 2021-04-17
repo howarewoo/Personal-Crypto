@@ -20,6 +20,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             ok: false,
           });
         }
+        break;
+
       default:
         break;
     }
