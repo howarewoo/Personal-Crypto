@@ -3,7 +3,6 @@
 [![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/lgfflokdinmbpcjnhkdaiajfgalpnkcl?style=flat-square)][store_link]
 [![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/lgfflokdinmbpcjnhkdaiajfgalpnkcl?style=flat-square)][store_link]
 [![Chrome Web Store Ratings](https://img.shields.io/chrome-web-store/rating/lgfflokdinmbpcjnhkdaiajfgalpnkcl?style=flat-square)][store_link]
-![npm type definitions](https://img.shields.io/npm/types/typescript?style=flat-square)
 
 [store_link]:  https://chrome.google.com/webstore/detail/personal-crypto/lgfflokdinmbpcjnhkdaiajfgalpnkcl
 
