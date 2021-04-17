@@ -42,7 +42,7 @@ export function HomeView() {
                 rightIcon={<LoyaltyOutlined />}
                 primary="Donate"
                 leftIcon={<Launch />}
-                onClick={() => window.open("https://github.com/sponsors/WinnieDaWoo", "_blank")} />
+                onClick={() => window.open("https://www.paypal.com/donate?hosted_button_id=DTZNG6YF6MS9A", "_blank")} />
         </div>
     );
 }
