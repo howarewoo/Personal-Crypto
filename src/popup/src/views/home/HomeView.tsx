@@ -6,6 +6,7 @@ import {
     AccountBalanceWalletOutlined,
     Add,
     GitHub,
+    LoyaltyOutlined,
     ArrowRight,
     Launch
 } from "@material-ui/icons";
@@ -37,6 +38,11 @@ export function HomeView() {
                 primary="Github"
                 leftIcon={<Launch />}
                 onClick={() => window.open("https://github.com/awoox2/personal-crypto", "_blank")} />
+            <ListItemLink
+                rightIcon={<LoyaltyOutlined />}
+                primary="Donate"
+                leftIcon={<Launch />}
+                onClick={() => window.open("https://www.paypal.com/donate?hosted_button_id=DTZNG6YF6MS9A", "_blank")} />
         </div>
     );
 }
