@@ -9,6 +9,8 @@
 
 Personal Crypto is a free chrome extension for connecting your cryptocurrency exchanges and wallets to your [Personal Capital](https://pcap.rocks/adamwoo) dashboard. It will also update manually entered holding prices as long as the ticker is prefixed with "CRYPTO " (eg. "CRYPTO BTC").
 
+UPDATE: Personal Crypto now supports Personal Capital's Cryptocurrency BETA accounts. These accounts update the price natively, and therefore do not need to have the "CRYPTO" prefix. If connected to an exchange, the quantity will still be updated based on the ticker.
+
 This project is still in development, so all feedback is welcome.
 
 - [Personal Crypto](#personal-crypto)
@@ -22,13 +24,14 @@ This project is still in development, so all feedback is welcome.
 
 ## Supported Accounts
 
-| Account Types                                                      | Date Added    |
-| ------------------------------------------------------------------ | ------------- |
-| [Binance US](https://accounts.binance.us/en/register?ref=52184783) | 01/07/2021    |
-| [Coinbase](https://www.coinbase.com/join/woo_sxd)                  | 01/07/2021    |
-| [Coinbase Pro](https://www.coinbase.com/join/woo_sxd)              | 01/07/2021    |
-| Bitcoin Wallets                                                    | 01/11/2021    |
-| Ethereum Wallets                                                   | 11/14/2021    |
+| Account Types                                                      | Date Added    | Notes         |
+| ------------------------------------------------------------------ | ------------- | ------------- |
+| [Binance US](https://accounts.binance.us/en/register?ref=52184783) | 01/07/2021    |               |
+| [Coinbase](https://www.coinbase.com/join/woo_sxd)                  | 01/07/2021    |               |
+| [Coinbase Pro](https://www.coinbase.com/join/woo_sxd)              | 01/07/2021    |               |
+| Bitcoin Wallets                                                    | 01/11/2021    |               |
+| Ethereum Wallets                                                   | 01/14/2021    |               |
+| [KuCoin](https://www.kucoin.com/ucenter/signup?rcode=rJUS6T9)      | 04/17/2021    | API key requires "TRADE" security in order to pull lended asset balances |
 
 ## Installation
 
