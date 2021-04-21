@@ -47,6 +47,32 @@ export class KuCoin extends AbstractExchange {
         return data
     }
 
+    async getSubAccounts(): Promise<IKuCoinAccount[]> {
+        const path = '/api/v1/sub-accounts'
+        const url = this.base + path;
+        const headers = await this._getHeaders(path);
+
+        const resp = await this.fetchWithProxy(url, { headers })
+        const data: IKuCoinSubAccount[] = (await resp.json()).data
+
+        const accounts: IKuCoinAccount[] = []
+        data.map((sub) => {
+            sub.mainAccounts.map((a) => {
+                accounts.push(a)
+            })
+
+            sub.tradeAccounts.map((a) => {
+                accounts.push(a)
+            })
+
+            sub.marginAccounts.map((a) => {
+                accounts.push(a)
+            })
+        })
+
+        return accounts
+    }
+
     private async getActiveLendOrders(): Promise<IKuCoinLendOrders[]> {
         const path = '/api/v1/margin/lend/trade/unsettled'
         const url = this.base + path;
@@ -104,9 +130,7 @@ export class KuCoin extends AbstractExchange {
 }
 
 interface IKuCoinAccount {
-    id: string
     currency: string
-    type: "main" | "trade" | "margin" | "pool"
     balance: string
     available: string
     holds: string
@@ -121,4 +145,12 @@ interface IKuCoinLendOrders {
     dailyIntRate: string
     term: number,
     maturityTime: number
+}
+
+interface IKuCoinSubAccount{
+    subUserId: string
+    subName: string
+    mainAccounts: IKuCoinAccount[]
+    tradeAccounts: IKuCoinAccount[]
+    marginAccounts: IKuCoinAccount[]
 }
