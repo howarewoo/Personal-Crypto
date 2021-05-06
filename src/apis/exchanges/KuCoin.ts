@@ -83,12 +83,25 @@ export class KuCoin extends AbstractExchange {
         return data.items
     }
 
-    private mergeBalances(accounts: IKuCoinAccount[], lendOrders: IKuCoinLendOrders[]): Map<string, number> {
+    private mergeBalances(accounts: IKuCoinAccount[], subAccounts: IKuCoinAccount[], lendOrders: IKuCoinLendOrders[]): Map<string, number> {
         let balances = new Map<string, number>()
 
         for (let account of accounts) {
             let ticker = account.currency
             let quantity = parseFloat(account.balance)
+
+            if (quantity > 0) {
+                if (balances.has(ticker)) {
+                    quantity += balances.get(ticker)
+                }
+
+                balances.set(ticker, quantity)
+            }
+        }
+
+        for (let sub of subAccounts) {
+            let ticker = sub.currency
+            let quantity = parseFloat(sub.balance)
 
             if (quantity > 0) {
                 if (balances.has(ticker)) {
@@ -114,10 +127,11 @@ export class KuCoin extends AbstractExchange {
 
     async getHoldings(): Promise<PersonalCryptoHolding[]> {
         const accounts = await this.getAccounts()
+        const subAccounts = await this.getSubAccounts()
         const lendOrders = await this.getActiveLendOrders()
 
         const holdings: PersonalCryptoHolding[] = [];
-        const balances = this.mergeBalances(accounts, lendOrders)
+        const balances = this.mergeBalances(accounts, subAccounts, lendOrders)
         balances.forEach((quantity, ticker) => {
             holdings.push({
                 ticker,
@@ -147,7 +161,7 @@ interface IKuCoinLendOrders {
     maturityTime: number
 }
 
-interface IKuCoinSubAccount{
+interface IKuCoinSubAccount {
     subUserId: string
     subName: string
     mainAccounts: IKuCoinAccount[]
